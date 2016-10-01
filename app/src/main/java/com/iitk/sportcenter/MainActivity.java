@@ -1,5 +1,6 @@
 package com.iitk.sportcenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import static com.iitk.sportcenter.R.id.football;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,12 +83,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.football) {
-            // Handle the camera action
+        if (id == football) {
+            startActivity(new Intent(this, football.class));
         } else if (id == R.id.cricket) {
-
+            startActivity(new Intent(this, cricket.class));
         } else if (id == R.id.weather) {
-
+            startActivity(new Intent(this, weather.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

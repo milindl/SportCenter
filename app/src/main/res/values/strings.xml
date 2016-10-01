@@ -6,4 +6,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_weather">weather</string>
+    <string name="title_activity_football">football</string>
+    <string name="title_activity_cricket">cricket</string>
 </resources>
