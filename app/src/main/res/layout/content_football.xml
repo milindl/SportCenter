@@ -13,4 +13,9 @@
     tools:context="com.iitk.sportcenter.football"
     tools:showIn="@layout/activity_football">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/footballtext"/>
+
 </RelativeLayout>

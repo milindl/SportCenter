@@ -6,9 +6,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,13 +15,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Random;
 
-import static android.R.attr.bitmap;
 import static com.iitk.sportcenter.R.id.football;
 
 public class MainActivity extends AppCompatActivity
@@ -40,7 +47,54 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         img = (ImageView) findViewById(R.id.xkcd);
-        new LoadImage().execute("http://imgs.xkcd.com/comics/rosetta.png");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                JSONObject getJSON = null;
+                StringBuffer json = null;
+
+                Random random = new Random();
+                Integer rand;
+                rand = random.nextInt() % 1000;
+
+                URL url = null;
+                String xkcd_api = "http://xkcd.com/" + rand.toString() + "/info.0.json";
+                try {
+                    url = new URL(xkcd_api);
+                } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                }
+                HttpURLConnection connection = null;
+                try {
+                    connection = (HttpURLConnection)url.openConnection();
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                    json = new StringBuffer(1024);
+                    String tmp = "";
+                    while ((tmp=reader.readLine())!=null){
+                        json.append(tmp).append('\n');
+                    }
+
+                    reader.close();
+
+                    getJSON = new JSONObject(json.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    new LoadImage().execute(getJSON.getString("img"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
