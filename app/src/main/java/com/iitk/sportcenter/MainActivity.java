@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
                 Random random = new Random();
                 Integer rand;
-                rand = random.nextInt() % 1000 + 1;
+                rand = random.nextInt() % 3 + 1;
 
                 URL url = null;
                 String xkcd_api = "http://xkcd.com/" + rand.toString() + "/info.0.json";
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                    json = new StringBuffer(1024);
+                    json = new StringBuffer(2048);
                     String tmp = "";
                     while ((tmp=reader.readLine())!=null){
                         json.append(tmp).append('\n');

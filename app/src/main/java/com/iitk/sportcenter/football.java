@@ -38,7 +38,7 @@ public class football extends AppCompatActivity {
                 StringBuffer json = null;
 
                 URL url = null;
-                String weather_api = "http://api.football-data.org/v1/competitions/398/teams";
+                String weather_api = "http://api.football-data.org/v1/competitions/398/leagueTable";
                 try {
                     url = new URL(weather_api);
                 } catch (MalformedURLException e1) {
@@ -71,10 +71,12 @@ public class football extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            weather.setText("Count : " + finalGetJSON.getString("count"));
+                            weather.setText( finalGetJSON.getString("leagueCaption"));
                             weather.append("\n");
-                            weather.append("Team name : " + finalGetJSON.getJSONArray("teams").getJSONObject(1).getString("name"));
-                            weather.append("\n");
+                            for (Integer i = 0; i<20; i++){
+                                weather.append(i.toString() + ".  " + finalGetJSON.getJSONArray("standing").getJSONObject(i).getString("teamName"));
+                                weather.append("\n");
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();

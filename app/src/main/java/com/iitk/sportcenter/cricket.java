@@ -50,7 +50,7 @@ public class cricket extends AppCompatActivity {
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                    json = new StringBuffer(1024);
+                    json = new StringBuffer(4096);
                     String tmp = "";
                     while ((tmp=reader.readLine())!=null){
                         json.append(tmp).append('\n');
@@ -70,10 +70,16 @@ public class cricket extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            weather.setText("Title : " + finalGetJSON.getJSONArray("data").getJSONObject(1).getString("title"));
-                            weather.append("\n");
-                            weather.append("Description : " + finalGetJSON.getJSONArray("data").getJSONObject(1).getString("description"));
-                            weather.append("\n");
+
+                            for (Integer i = 0; i<5; i++){
+                                weather.setText("Title : " + finalGetJSON.getJSONArray("data").getJSONObject(i).getString("title"));
+                                weather.append("\n");
+                                weather.append("\n");
+                                weather.append("Description : " + finalGetJSON.getJSONArray("data").getJSONObject(i).getString("description"));
+                                weather.append("\n");
+                                weather.append("\n");
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

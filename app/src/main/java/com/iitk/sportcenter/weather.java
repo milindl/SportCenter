@@ -76,6 +76,9 @@ public class weather extends AppCompatActivity {
                             weather.append("\n");
                             weather.append("City : " + finalGetJSON.getString("name"));
                             weather.append("\n");
+                            weather.append("Pressure : " + finalGetJSON.getJSONObject("main").getString("pressure"));
+                            weather.append("\n" + "Humidity : " + finalGetJSON.getJSONObject("main").getString("humidity"));
+                            weather.append("\n" + "Weather : " + finalGetJSON.getJSONArray("weather").getJSONObject(0).getString("description"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
