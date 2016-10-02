@@ -57,14 +57,14 @@ public class MainActivity extends AppCompatActivity
 
                 Random random = new Random();
                 Integer rand;
-                rand = random.nextInt() % 1000;
+                rand = random.nextInt() % 3 + 1;
 
                 URL url = null;
                 String xkcd_api = "http://xkcd.com/" + rand.toString() + "/info.0.json";
                 try {
                     url = new URL(xkcd_api);
                 } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
+
                 }
                 HttpURLConnection connection = null;
                 try {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                    json = new StringBuffer(1024);
+                    json = new StringBuffer(2048);
                     String tmp = "";
                     while ((tmp=reader.readLine())!=null){
                         json.append(tmp).append('\n');
@@ -82,15 +82,15 @@ public class MainActivity extends AppCompatActivity
 
                     getJSON = new JSONObject(json.toString());
                 } catch (IOException e) {
-                    e.printStackTrace();
+
                 } catch (JSONException e) {
-                    e.printStackTrace();
+
                 }
 
                 try {
                     new LoadImage().execute(getJSON.getString("img"));
                 } catch (JSONException e) {
-                    e.printStackTrace();
+
                 }
 
             }

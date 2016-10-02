@@ -27,6 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
         android:id="@+id/kitty"/>
 
     <android.support.design.widget.FloatingActionButton
