@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
                 Random random = new Random();
                 Integer rand;
-                rand = random.nextInt() % 3 + 1;
+                rand = random.nextInt(1000) % 1000 + 1;
 
                 URL url = null;
                 String xkcd_api = "http://xkcd.com/" + rand.toString() + "/info.0.json";
